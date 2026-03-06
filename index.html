@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рейтинг Рунета 2026 — Полный гид</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #4eb3f9;
+    --blue-light: #e8f6ff;
+    --gray: #a3b3cb;
+    --gray-light: #f4f6f9;
+    --gray-border: #e2e8f0;
+    --dark: #1a2233;
+    --text: #2d3748;
+    --text-muted: #718096;
+    --red: #e53e3e;
+    --green: #38a169;
+    --orange: #dd6b20;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: 'Inter', -apple-system, sans-serif; color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* Header */
+  .header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--gray-border); }
+  .header-label { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 12px; }
+  .header h1 { font-size: 32px; font-weight: 700; color: var(--dark); line-height: 1.25; margin-bottom: 8px; }
+  .header-sub { font-size: 14px; color: var(--text-muted); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin-bottom: 40px; flex-wrap: wrap; border-bottom: 2px solid var(--gray-border); padding-bottom: 0; }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--dark); }
+  .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Typography */
+  h2 { font-size: 22px; font-weight: 700; color: var(--dark); margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--blue); display: inline-block; }
+  h2:first-child { margin-top: 0; }
+  h3 { font-size: 16px; font-weight: 600; color: var(--dark); margin: 32px 0 10px; padding-left: 12px; border-left: 3px solid var(--blue); }
+  p { margin-bottom: 16px; font-size: 15px; line-height: 1.8; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 600; }
+
+  /* Labels */
+  .label-important {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* Callout boxes */
+  .callout {
+    border-left: 3px solid var(--blue);
+    background: var(--blue-light);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .callout.warn { border-left-color: var(--orange); background: #fff8f0; }
+  .callout.danger { border-left-color: var(--red); background: #fff5f5; }
+  .callout.neutral { border-left-color: var(--gray); background: var(--gray-light); }
+
+  /* Two-column comparison */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .compare-card { border-radius: 8px; padding: 20px; font-size: 14px; line-height: 1.7; }
+  .compare-card.bad  { background: #fff5f5; border: 1.5px solid #feb2b2; }
+  .compare-card.good { background: #f0fff4; border: 1.5px solid #9ae6b4; }
+  .compare-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+  .compare-card.bad  h4 { color: var(--red); }
+  .compare-card.good h4 { color: var(--green); }
+  .compare-card li { list-style: none; padding-left: 16px; position: relative; margin-bottom: 6px; color: var(--text); }
+  .compare-card.bad  li::before { content: "—"; position: absolute; left: 0; color: var(--red); }
+  .compare-card.good li::before { content: "+"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  /* Two-column grid for ratings */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .col-card { border-radius: 8px; padding: 18px; font-size: 14px; line-height: 1.8; }
+  .col-card.green { background: #f0fff4; border: 1.5px solid #9ae6b4; }
+  .col-card.red   { background: #fff5f5; border: 1.5px solid #feb2b2; }
+  .col-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+  .col-card.green h4 { color: var(--green); }
+  .col-card.red   h4 { color: var(--red); }
+  .col-card li { list-style: none; padding-left: 16px; position: relative; margin-bottom: 4px; }
+  .col-card.green li::before { content: "+"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .col-card.red   li::before { content: "—"; position: absolute; left: 0; color: var(--red); }
+
+  /* Timeline */
+  .timeline { margin: 24px 0; }
+  .tl-item { display: flex; gap: 0; align-items: flex-start; margin-bottom: 0; }
+  .tl-left { width: 130px; min-width: 130px; text-align: right; padding-right: 16px; padding-top: 2px; }
+  .tl-date { font-size: 12px; color: var(--text-muted); font-weight: 500; line-height: 1.4; }
+  .tl-line { display: flex; flex-direction: column; align-items: center; }
+  .tl-dot { width: 10px; height: 10px; min-height: 10px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 4px; }
+  .tl-dot.red { background: var(--red); }
+  .tl-dot.green { background: var(--green); }
+  .tl-dot.gold { background: #d69e2e; }
+  .tl-dot.dark { background: var(--dark); }
+  .tl-connector { width: 2px; background: var(--gray-border); flex: 1; min-height: 20px; }
+  .tl-right { padding-left: 16px; padding-top: 0; padding-bottom: 20px; font-size: 14px; line-height: 1.6; color: var(--text); }
+  .tl-right.active { font-weight: 600; color: var(--green); }
+  .tl-right.deadline { font-weight: 700; color: var(--red); }
+  .tl-right.final { font-weight: 700; color: var(--dark); }
+  .you-here { font-size: 11px; color: var(--green); margin-left: 6px; font-style: italic; font-weight: 400; }
+
+  /* Project types */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 24px 0; }
+  .type-card { border: 1.5px solid var(--gray-border); border-radius: 8px; padding: 18px; font-size: 14px; }
+  .type-card-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; color: var(--dark); }
+  .type-card li { list-style: none; padding-left: 14px; position: relative; margin-bottom: 5px; color: var(--text); line-height: 1.5; }
+  .type-card li::before { content: "·"; position: absolute; left: 3px; color: var(--blue); font-weight: 700; }
+  .type-price { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding: 5px 10px; background: var(--gray-light); border-radius: 4px; display: inline-block; }
+
+  /* Steps / order */
+  .steps { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; align-items: flex-start; }
+  .step { background: var(--gray-light); border: 1.5px solid var(--gray-border); border-radius: 8px; padding: 12px 14px; min-width: 120px; max-width: 140px; }
+  .step-num { font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; margin-bottom: 4px; }
+  .step-title { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .step-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+  .step-arrow { color: var(--gray); font-size: 18px; display: flex; align-items: center; padding-top: 10px; flex-shrink: 0; }
+
+  /* Date period */
+  .date-range { display: flex; align-items: center; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
+  .date-badge { padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .date-badge.start { background: var(--blue); color: #fff; }
+  .date-badge.end { background: var(--red); color: #fff; }
+  .date-dash { color: var(--gray); font-size: 18px; }
+
+  /* Client/payer grid */
+  .cp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .cp-card { border-radius: 8px; padding: 18px; font-size: 14px; line-height: 1.7; }
+  .cp-card.blue { background: var(--blue-light); border: 1.5px solid #bee3f8; }
+  .cp-card.orange { background: #fff8f0; border: 1.5px solid #fbd38d; }
+  .cp-card h4 { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+  .cp-card.blue h4 { color: #2b6cb0; }
+  .cp-card.orange h4 { color: var(--orange); }
+
+  /* Check table */
+  .check-table { margin: 20px 0; border: 1.5px solid var(--gray-border); border-radius: 8px; overflow: hidden; }
+  .check-row { display: grid; grid-template-columns: 1fr 1.4fr; padding: 10px 16px; font-size: 14px; gap: 16px; }
+  .check-row:not(:last-child) { border-bottom: 1px solid var(--gray-border); }
+  .check-row:first-child { background: var(--gray-light); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); }
+  .check-param { color: var(--dark); font-weight: 500; }
+  .check-doc { color: var(--text-muted); }
+
+  /* Verification flow */
+  .vflow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; align-items: flex-start; }
+  .vflow-step { border: 1.5px solid var(--gray-border); border-radius: 8px; padding: 12px 14px; min-width: 120px; max-width: 145px; background: #fff; }
+  .vflow-icon { font-size: 18px; margin-bottom: 6px; }
+  .vflow-label { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.4; margin-bottom: 3px; }
+  .vflow-sub { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
+  .vflow-arrow { color: var(--gray); font-size: 16px; display: flex; align-items: center; padding-top: 8px; flex-shrink: 0; }
+
+  /* Revenue grid */
+  .rev-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; margin: 20px 0; }
+  .rev-block { border: 1.5px solid var(--gray-border); border-radius: 8px; overflow: hidden; }
+  .rev-head { background: var(--dark); color: #fff; padding: 10px 16px; font-size: 13px; font-weight: 600; }
+  .rev-head.green { background: var(--green); }
+  .rev-row2 { padding: 10px 16px; font-size: 13px; border-bottom: 1px solid var(--gray-border); }
+  .rev-row2:last-child { border-bottom: none; }
+  .rev-row2 span { font-size: 11px; font-weight: 600; color: var(--text-muted); float: right; }
+  .rev-item { display: flex; gap: 8px; padding: 8px 16px; font-size: 13px; border-bottom: 1px solid var(--gray-border); line-height: 1.5; }
+  .rev-item:last-child { border-bottom: none; }
+  .rev-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+  /* Numbered steps */
+  .num-steps { margin: 20px 0; }
+  .num-step { display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
+  .num-badge { min-width: 28px; height: 28px; background: var(--blue); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .num-text { font-size: 14px; color: var(--text); line-height: 1.65; padding-top: 3px; }
+
+  /* Vtype blocks */
+  .vtype { border: 1.5px solid var(--gray-border); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .vtype-head { padding: 10px 16px; font-size: 14px; font-weight: 600; }
+  .vtype-head.green { background: #f0fff4; color: var(--green); border-bottom: 1px solid #9ae6b4; }
+  .vtype-head.blue  { background: var(--blue-light); color: #2b6cb0; border-bottom: 1px solid #bee3f8; }
+  .vtype-head.purple { background: #faf5ff; color: #6b46c1; border-bottom: 1px solid #d6bcfa; }
+  .vtype-head.dark  { background: var(--gray-light); color: var(--dark); border-bottom: 1px solid var(--gray-border); }
+  .vtype-body { padding: 12px 16px; }
+  .vtype-item { display: flex; gap: 8px; margin-bottom: 6px; font-size: 13px; line-height: 1.55; color: var(--text); }
+  .vtype-item::before { content: "·"; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+
+  /* Footer */
+  .footer { margin-top: 64px; padding: 24px; background: var(--gray-light); border-radius: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.8; border: 1.5px solid var(--gray-border); }
+  .footer strong { color: var(--dark); }
+
+  /* Logo */
+  .ws-logo { margin-bottom: 24px; }
+  .ws-logo svg { width: 140px; height: auto; display: block; }
+
+  @media (max-width: 640px) {
+    .compare, .two-col, .type-grid, .cp-grid, .rev-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+    .tl-left { width: 90px; min-width: 90px; }
+    .steps { gap: 6px; }
+    .step { min-width: 100px; max-width: 120px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Logo -->
+  <div class="ws-logo">
+    <svg width="160" height="160" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M961.147 354.704C966.338 361.867 968.334 369.031 968.733 375.398V376.194C968.334 382.561 965.938 389.725 961.147 396.888C947.573 416.388 854.151 566.819 854.151 566.819C854.151 566.819 846.166 581.942 827.801 564.83C824.215 561.444 823.395 560.725 822.641 559.942C821.801 559.069 821.043 558.115 816.622 553.289C807.839 543.737 801.051 524.237 823.808 492.4C848.561 458.175 874.113 419.174 890.082 392.908C892.877 388.531 894.075 382.561 894.075 376.99V374.602C894.075 369.031 892.877 363.061 890.082 358.683C874.113 332.816 848.561 293.417 823.808 259.192C800.652 227.355 807.839 207.855 816.622 198.303C821.043 193.477 821.801 192.523 822.641 191.65C823.395 190.867 824.215 190.148 827.801 186.762C846.166 169.65 854.151 184.773 854.151 184.773C854.151 184.773 947.573 335.203 961.147 354.704Z" fill="#53B4FA"/><path d="M566.694 364.255C566.694 368.235 567.892 372.214 569.888 375.398C581.067 393.705 599.432 421.562 616.599 445.838C632.968 468.124 625.383 476.083 618.595 482.053C613.805 486.53 610.137 489.664 606.076 493.134C604.722 494.29 603.325 495.484 601.827 496.778C588.253 508.319 581.067 494.788 581.067 494.788C581.067 494.788 517.587 392.511 508.006 378.582C504.412 373.408 503.215 368.235 502.815 363.857C503.215 359.082 504.412 354.306 508.006 349.132C517.587 335.204 579.071 236.508 579.071 236.508C579.071 236.508 587.055 220.988 601.827 230.937C607.417 234.916 612.607 239.294 618.595 245.661C618.892 245.997 619.194 246.332 619.497 246.669C625.317 253.137 631.777 260.317 616.599 281.876C599.432 305.754 581.067 333.612 569.888 351.918C567.892 355.102 566.694 360.276 566.694 364.255Z" fill="#53B4FA"/><path d="M454.109 521.054H461.694L489.641 644.821H490.04L502.816 583.136L518.786 512.697H529.565L494.831 662.332H484.052L468.481 593.484L458.101 541.35L447.721 592.688L431.751 662.332H420.972L386.238 512.697H397.017L412.987 583.136L425.763 644.821H426.162L454.109 521.054Z" fill="#090C0F"/><path fill-rule="evenodd" clip-rule="evenodd" d="M539.149 621.341V590.299C539.149 558.462 550.727 548.115 575.081 548.115C599.435 548.115 611.013 557.666 611.013 590.697V620.943C611.013 652.382 599.435 663.525 575.081 663.525C550.727 663.923 539.149 654.372 539.149 621.341ZM601.431 620.943V591.095C601.431 566.819 597.439 557.268 575.081 557.268C553.921 557.268 548.731 566.819 548.731 590.697V620.545C548.731 644.821 552.724 654.77 575.081 654.77C596.241 654.77 601.431 644.821 601.431 620.943Z" fill="#090C0F"/><path d="M646.546 561.646L646.147 548.115V547.717H637.763V661.934H647.345V581.545C647.345 565.626 659.721 554.483 676.889 557.269V548.115C662.915 545.728 651.337 552.493 646.546 561.646Z" fill="#090C0F"/><path d="M759.928 662.331L719.206 605.82H708.426V662.331H698.445V513.094H708.426V596.269H719.206L755.537 548.115H767.115L727.19 601.442L771.906 662.729H759.928V662.331Z" fill="#090C0F"/><path d="M96.3892 700.536C113.557 700.536 125.534 707.302 125.534 725.608V726.006H134.716C133.519 699.342 117.549 692.179 96.3892 692.179C69.2408 692.179 55.2673 703.322 55.2673 731.578C55.2673 759.435 72.0355 766.201 87.6059 767.792C109.963 769.782 128.728 772.966 128.728 799.63C128.728 825.497 119.945 835.447 95.1915 835.447C74.8302 835.447 64.4499 827.487 64.4499 809.181H55.2673C55.2673 833.059 68.8416 844.6 95.1915 844.6C121.142 844.6 138.709 836.242 138.709 799.63C138.709 777.742 125.933 763.415 103.975 760.629C102.238 760.42 100.542 760.229 98.8897 760.043C78.5156 757.749 64.8491 756.21 64.8491 731.18C64.8491 706.904 76.0279 700.536 96.3892 700.536Z" fill="#090C0F"/><path fill-rule="evenodd" clip-rule="evenodd" d="M159.469 802.017V770.976C159.469 739.139 171.047 728.792 195.401 728.792C219.755 728.792 231.333 738.343 231.333 771.374V801.619C231.333 833.058 219.755 844.201 195.401 844.201C171.047 844.599 159.469 835.048 159.469 802.017ZM221.751 801.619V771.772C221.751 747.496 217.759 737.945 195.401 737.945C174.241 737.945 169.051 747.496 169.051 771.374V801.221C169.051 825.497 173.044 835.446 195.401 835.446C216.561 835.446 221.751 825.497 221.751 801.619Z" fill="#090C0F"/><path d="M257.283 811.966C257.283 837.038 261.675 845.395 285.23 843.804V835.048C269.26 835.048 266.865 832.263 266.865 812.364V694.169H257.283V811.966Z" fill="#090C0F"/><path d="M403.407 703.322L412.989 702.128V728.792H436.544V737.945H412.989V811.171C412.989 832.263 419.377 836.242 437.742 835.049V843.406C411.791 845.794 403.008 836.242 403.008 811.171V703.322H403.407Z" fill="#090C0F"/><path d="M480.062 700.138C480.062 709.291 465.69 709.291 465.69 700.138C465.69 691.383 480.062 690.985 480.062 700.138Z" fill="#090C0F"/><path d="M468.085 843.007H477.667V728.791H468.085V843.007Z" fill="#090C0F"/><path fill-rule="evenodd" clip-rule="evenodd" d="M504.015 802.017V770.976C504.015 739.139 515.593 728.792 539.946 728.792C564.3 728.792 575.878 738.343 575.878 771.374V801.619C575.878 833.058 564.3 844.201 539.946 844.201C515.593 844.599 504.015 835.048 504.015 802.017ZM566.296 801.619V771.772C566.296 747.496 562.304 737.945 539.946 737.945C518.787 737.945 513.596 747.496 513.596 771.374V801.221C513.596 825.497 517.589 835.446 539.946 835.446C561.106 835.446 566.296 825.497 566.296 801.619Z" fill="#090C0F"/><path d="M728.39 834.253C708.427 834.253 701.64 824.701 701.64 811.569V811.171H692.059C692.059 834.651 706.431 843.406 728.39 843.406C753.143 843.406 764.721 830.671 764.721 810.773C764.721 785.701 747.154 782.119 730.785 779.731C730.053 779.652 729.325 779.577 728.6 779.501C714.702 778.053 702.439 776.776 702.439 758.241C702.439 745.108 710.024 737.149 727.591 737.149C745.158 737.149 751.945 744.312 752.344 758.241H761.926C761.926 739.935 751.546 728.394 727.591 728.394C704.435 728.394 692.458 739.935 692.458 758.639C692.458 782.517 707.23 786.099 722.401 788.089C723.498 788.225 724.597 788.354 725.692 788.483C740.542 790.229 754.74 791.898 754.74 811.171C754.74 825.895 745.956 834.253 728.39 834.253Z" fill="#090C0F"/><path d="M363.88 802.813C363.88 826.691 358.69 836.64 337.53 836.64C315.173 836.64 311.18 826.691 311.18 802.415V730.383H301.599V802.813C301.599 835.844 313.177 845.395 337.53 845.395C361.884 845.395 373.462 834.252 373.462 802.813V730.383H363.88V802.813Z" fill="#090C0F"/><path d="M660.918 771.374V843.804H670.5V771.374C670.5 739.934 658.922 728.792 634.568 728.792C610.214 728.792 598.636 738.343 598.636 771.374V843.804H608.218V771.772C608.218 747.496 612.211 737.547 634.568 737.547C655.728 737.547 660.918 747.496 660.918 771.374Z" fill="#090C0F"/>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-label">Руководство для участников</div>
+    <h1>Рейтинг Рунета 2026<br>Полный гид для опытных участников</h1>
+    <div class="header-sub">Основано на вебинаре организаторов · Февраль 2026 · Для тех, кто уже участвовал</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('main', this)">Ключевые изменения</button>
+    <button class="tab-btn" onclick="switchTab('projects', this)">Проекты и подача</button>
+    <button class="tab-btn" onclick="switchTab('verification', this)">Проверки</button>
+    <button class="tab-btn" onclick="switchTab('revenue', this)">Обороты</button>
+    <button class="tab-btn" onclick="switchTab('extra', this)">Дополнительно</button>
+  </div>
+
+  <!-- TAB: MAIN -->
+  <div id="tab-main" class="tab-content active">
+
+    <h2>Главное изменение: от выработки к экспертизе</h2>
+
+    <p><span class="label-important">Важно</span> В 2026 году Рейтинг Рунета совершает принципиальный методологический переход. Если раньше считалась любая оказанная услуга из длинного перечня, то теперь в зачёт идут только <strong>комплексные проекты, подтверждающие полноценную экспертизу</strong>. Это самое важное изменение за много лет, которое затронет всех без исключения.</p>
+
+    <div class="compare">
+      <div class="compare-card bad">
+        <h4>До 2026: выработка</h4>
+        <ul>
+          <li>SMM: отдельно стратегия, аналитика, контент, ведение</li>
+          <li>Контекст: отдельно автоматизация, ведение, аналитика</li>
+          <li>Видео: отдельно монтаж, обработка, производство</li>
+          <li>Любая частичная услуга шла в зачёт</li>
+          <li>Можно было набрать балл мелкими услугами</li>
+        </ul>
+      </div>
+      <div class="compare-card good">
+        <h4>2026: экспертиза</h4>
+        <ul>
+          <li>SMM: только комплексное ведение (стратегия + контент + аналитика + ведение)</li>
+          <li>Контекст: только полноцикловое ведение кампаний</li>
+          <li>Видео: только создание роликов под ключ</li>
+          <li>Засчитывается только комплексный проект</li>
+          <li>Справочник услуг сократился примерно в 5 раз</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>Логика организаторов такова: компания, которая провела 5 полноцикловых SMM-проектов, оказывает любую отдельную услугу лучше, чем та, которая сделала 100 разрозненных «кусков». Поэтому справочник услуг сократился примерно в пять раз — каждая экспертиза теперь требует подтверждения всего комплекса работ, от стратегии до аналитики.</p>
+
+    <div class="callout danger">
+      <span class="label-important">Важно</span>
+      <strong>Практическое следствие:</strong> многие проекты из прошлых лет теперь не будут учитываться в рейтингах, потому что в них была только часть услуг. Перед внесением проектов <strong>обязательно изучите обновлённый справочник экспертиз и методику</strong> каждого рейтинга, в который вы хотите попасть.
+    </div>
+
+    <!-- Timeline -->
+    <h3>Календарь рейтинга Рунета 2026</h3>
+    <div class="timeline" id="timeline-events"></div>
+
+    <h2>Новые и упразднённые рейтинги</h2>
+
+    <p>В 2026 году количество рейтингов вырастет с 34 до 47. Организаторы планомерно закрывают все ниши digital и маркетинга. Появляются принципиально новые направления, а также упраздняются те рейтинги, к которым не было реального спроса от заказчиков.</p>
+
+    <div class="two-col">
+      <div class="col-card green">
+        <h4>Новые рейтинги 2026</h4>
+        <ul>
+          <li>Разработка десктопного и серверного ПО</li>
+          <li>Техническая поддержка (отдельный рейтинг)</li>
+          <li>Разработка чат-ботов</li>
+          <li>AR/VR-разработка</li>
+          <li>1С-интеграторы</li>
+          <li>Продвижение в ответах нейросетей (GEO)</li>
+          <li>Событийный маркетинг / ивент</li>
+          <li>Геймификация</li>
+          <li>CRM-маркетинг</li>
+          <li>+8 новых отраслевых рейтингов</li>
+        </ul>
+      </div>
+      <div class="col-card red">
+        <h4>Упразднённые рейтинги</h4>
+        <ul>
+          <li>Корпоративное ПО (заменён на десктопный/серверный)</li>
+          <li>Поддержка и развитие сайтов (заменён на техподдержку)</li>
+          <li>Комплексные разработчики (нет спроса)</li>
+          <li>Коммуникационные агентства (слит с PR-рейтингом)</li>
+          <li>Подрядчики иностранных компаний (нет спроса)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Изменения в карточке проекта</h2>
+
+    <p><span class="label-important">Важно</span> Карточка проекта полностью переработана. Вместо пошагового мастера — одна страница со всеми полями и навигационным меню по блокам. Каждый заполненный блок подсвечивается зелёным. Теперь <strong>все поля, отмеченные красной звёздочкой, обязательны</strong>, и все они будут проверяться — в отличие от прошлых лет, когда часть данных не верифицировалась.</p>
+
+    <div class="callout">
+      <strong>Новое в карточке проекта:</strong><br>
+      · Можно указывать <strong>несколько плательщиков</strong> в одном проекте (раньше — только один)<br>
+      · Появилась отдельная вкладка <strong>«Для портфолио»</strong> — название, картинка, описание и до 3 ссылок<br>
+      · В карточке виден статус актуальности подтверждения проекта<br>
+      · Тип проекта нельзя изменить после создания (особенно важно для секретных)
+    </div>
+
+  </div>
+
+  <!-- TAB: PROJECTS -->
+  <div id="tab-projects" class="tab-content">
+
+    <h2>Подача проектов: что изменилось</h2>
+
+    <p><span class="label-important">Важно</span> Раздел «Проекты» в личном кабинете откроется в <strong>середине марта</strong>. До этого момента уже можно и нужно вносить заказчиков и плательщиков — именно в этой последовательности, так как плательщики являются частью заказчика и выбираются при его создании.</p>
+
+    <h3>Правильная последовательность внесения данных</h3>
+    <div class="steps" id="input-order-steps"></div>
+
+    <h3>Что такое «проект» в терминологии Рейтинга Рунета</h3>
+
+    <p><span class="label-important">Важно</span> Проект — это решение <strong>одной конкретной задачи</strong> для заказчика, имеющее общую цель, бюджет и временные рамки. Не путайте проект с заказчиком. Один заказчик может иметь несколько проектов: ребрендинг — один проект, разработка сайта — второй, SEO-продвижение — третий, контекстная реклама — четвёртый. Это четыре разных проекта для одного заказчика.</p>
+
+    <div class="callout neutral">
+      <strong>Правило перерыва:</strong> если заказчик «уходил» менее чем на 6 месяцев и вернулся — это один проект. Если перерыв больше 6 месяцев — это уже два отдельных проекта.
+    </div>
+
+    <h3>Типы проектов и стоимость</h3>
+    <div class="type-grid" id="project-types-grid"></div>
+
+    <p>При выборе типа проекта (задача / сопровождение / аутстаффинг) помните: <strong>срок влияет на рейтинговый балл только в проектах типа «сопровождение» и «аутстаффинг»</strong>. В проектах типа «задача» длительность не является показателем качества, поэтому на балл не влияет.</p>
+
+    <h3>Учитываемый период</h3>
+
+    <div class="date-range">
+      <div class="date-badge start">15 января 2024</div>
+      <div class="date-dash">——</div>
+      <div class="date-badge end">31 марта 2026</div>
+    </div>
+
+    <div class="callout neutral" style="margin-top:0">
+      · Проекты, начавшиеся до января 2024 — всё равно вносим, но указываем дату <strong>начала в пределах периода</strong> (то, что можете подтвердить документами за этот срок)<br>
+      · Всё, что было до 15.01.2024, на рейтинговый балл не влияет<br>
+      · Действующие проекты — дату завершения не ставим, поле оставляем пустым
+    </div>
+
+    <h3>Стоимость проекта: что включать, что нет</h3>
+
+    <div class="callout danger">
+      <span class="label-important">Важно</span>
+      <strong>В стоимость проекта НЕ входит транзит.</strong> Транзит — это: рекламные бюджеты, лицензии на ПО, оплата субподрядчикам, хостинг, стоки, посевы у блогеров. Стоимость проекта — это только <strong>ваше вознаграждение за ваши услуги</strong>.<br><br>
+      Стоимость указывается в <strong>интервале</strong> (разброс не более чем в 1,5 раза). В проектах типа «задача» — общая стоимость. В «сопровождении» и «аутстаффинге» — средняя стоимость <strong>в месяц</strong>.<br><br>
+      Иностранная валюта → пересчитывается в рубли по курсу ЦБ на <strong>31 декабря 2025 года</strong>.
+    </div>
+
+    <h3>Заказчик vs Плательщик</h3>
+
+    <div class="cp-grid">
+      <div class="cp-card blue">
+        <h4>Заказчик</h4>
+        <p style="margin:0;font-size:14px;">Тот, <strong>в чьих интересах</strong> сделан проект. Это бренд, компания или человек. Не юрлицо! Например: «Сбербанк», «МТС». В субподряде: если вам платило агентство за работу для Сбера — заказчик всё равно <strong>Сбербанк</strong>.</p>
+      </div>
+      <div class="cp-card orange">
+        <h4>Плательщик</h4>
+        <p style="margin:0;font-size:14px;">Тот, <strong>кто платил вам</strong> — конкретное юрлицо или ИП. В субподряде плательщик — прямой подрядчик (агентство). Нигде публично не отображается. Указывать ИНН обязательно. Сначала создайте плательщика, потом привяжите к заказчику.</p>
+      </div>
+    </div>
+
+    <h3>Сферы и аудитория проекта</h3>
+
+    <p>Сфера — это не ваша сфера деятельности, а сфера <strong>заказчика или его проекта</strong>. Можно указать до 3 сфер. Выбирайте сферу второго уровня (конкретную), а не первого (общую). Например: если МТС заказал вам музыкальный фестиваль — выбираете «Музыка и мероприятия», а не «Телекоммуникации».</p>
+
+    <div class="callout warn">
+      Аудитория проекта — необязательное поле, но влияет на попадание в срезы по аудитории. B2B, B2C или GR — выбирайте то, на что реально направлен проект.
+    </div>
+
+  </div>
+
+  <!-- TAB: VERIFICATION -->
+  <div id="tab-verification" class="tab-content">
+
+    <h2>Проверки: всё, что нужно знать</h2>
+
+    <p><span class="label-important">Важно</span> В 2026 году проверка стала строже: теперь верифицируются <strong>все поля в карточке проекта</strong>, которые влияют на рейтинговый балл. Раньше часть данных принималась на доверии. Зато количество проектов для проверки сократится — потому что самих проектов станет меньше из-за перехода к экспертизам.</p>
+
+    <h3>Алгоритм обязательной проверки</h3>
+    <div class="vflow" id="vflow-steps"></div>
+
+    <div class="callout neutral">
+      <strong>Право на 1 ошибку:</strong> можно не подтвердить 1 проект из выборки без последствий. Если хотите исправить ошибку в проекте — система добавит ещё 1 проект в обязательную проверку.
+    </div>
+
+    <h3>Виды проверок</h3>
+    <div id="vtypes-list"></div>
+
+    <h3>Что проверяется и чем подтверждается</h3>
+
+    <p>При проверке вы загружаете документы и делаете <strong>разметку</strong> — выделяете конкретные области в документе, которые подтверждают каждый параметр проекта. Не нужно загружать весь госконтракт на 50 листов — только те страницы, где видна нужная информация.</p>
+
+    <div class="check-table">
+      <div class="check-row">
+        <div>Что проверяется</div>
+        <div>Чем подтверждается</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">Юрлицо заказчика / плательщика</div>
+        <div class="check-doc">Договор, счёт, акт — обязательно с ИНН</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">Сфера деятельности заказчика</div>
+        <div class="check-doc">Скриншот сайта заказчика</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">CMS сайта</div>
+        <div class="check-doc">Скриншот входа в админку</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">Дата начала/конца услуги</div>
+        <div class="check-doc">Акт, договор, счёт (расхождение до 2 недель допустимо)</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">Услуга оказывается по настоящее время</div>
+        <div class="check-doc">Документ за текущий или 2 предыдущих месяца</div>
+      </div>
+      <div class="check-row">
+        <div class="check-param">Оборот юрлица</div>
+        <div class="check-doc">Баланс с отметкой налоговой ИЛИ скриншот с сайта статистики</div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <span class="label-important">Важно</span>
+      <strong>Фальсификация документов — исключение из рейтинга.</strong> Организаторы умеют распознавать поддельные сканы (Photoshop, Figma). В 2025 году несколько известных компаний были исключены. Если у вас проблемы с документооборотом — не пытайтесь подделать. Либо не подавайте этот проект, либо найдите другое подтверждение из перечня в правилах.
+    </div>
+
+    <h3>Проверка оборота и транзитов</h3>
+
+    <p>Обороты проверяются на 100%. Если вы указали аномально низкий транзит для рекламного агентства с большим оборотом — к вам придут с индивидуальной проверкой. В 2025 году по итогам таких проверок более 70–80% компаний скорректировали свой транзит. Если данные достоверны — вы сможете это легко доказать.</p>
+
+  </div>
+
+  <!-- TAB: REVENUE -->
+  <div id="tab-revenue" class="tab-content">
+
+    <h2>Обороты в 2026: ключевое изменение</h2>
+
+    <p><span class="label-important">Важно</span> Главное изменение в разделе оборотов: теперь оборот вносится и подтверждается <strong>по каждому юрлицу отдельно</strong>. Раньше нужно было вводить общий оборот всех юрлиц и распределять его. Теперь — для каждого юрлица своя строка, свои документы, своё распределение по категориям.</p>
+
+    <h3>Структура оборота</h3>
+
+    <div class="rev-grid">
+      <div class="rev-block">
+        <div class="rev-head">Полный оборот юрлица (100%)</div>
+        <div class="rev-row2" style="color: var(--green); font-weight: 600;">Ваши услуги по категориям РР <span style="color:var(--green);">~40–60%</span></div>
+        <div class="rev-row2" style="color: var(--orange); font-weight: 600;">Транзит (рекламные бюджеты, лицензии, субподряд) <span style="color:var(--orange);">~30–50%</span></div>
+        <div class="rev-row2" style="color: var(--text-muted);">Другое (услуги вне категорий РР) <span>остаток</span></div>
+      </div>
+      <div class="rev-block">
+        <div class="rev-head green">Что учитывается в рейтинге</div>
+        <div class="rev-item"><span class="rev-check">✓</span> Только выручка за загруженные проекты, не весь оборот</div>
+        <div class="rev-item"><span class="rev-check">✓</span> Если оборот 1 млрд, а загружено проектов на 500 млн — учитывается 500 млн</div>
+        <div class="rev-item"><span class="rev-check">✓</span> Валюта иностранного юрлица → рубли по курсу ЦБ на 31.12.2025</div>
+        <div class="rev-item"><span class="rev-check">✓</span> В стоимость проекта НЕ входит транзит</div>
+      </div>
+    </div>
+
+    <h3>Как заполнять оборот: пошаговый порядок</h3>
+
+    <div class="num-steps" id="rev-steps"></div>
+
+    <div class="callout warn">
+      <strong>Когда вносить обороты?</strong> Только после того, как внесли все проекты. Система покажет поля распределения только по тем категориям, под которые у вас есть проекты. Раздел откроется примерно в середине апреля.
+    </div>
+
+    <h3>Проверка юрлиц (3 и более)</h3>
+
+    <p>Если у вас в аккаунте три или более юрлица/ИП — каждое из них нужно верифицировать. Нужно подтвердить, что эти юрлица действительно принадлежат вашему участнику рейтинга. Перечень подтверждающих документов — в разделе правил «Проверка и подтверждение юрлиц». Если в прошлом году из трёх юрлиц вы подтвердили три, а в этом году добавляете четвёртое — подтвердить нужно только новое.</p>
+
+  </div>
+
+  <!-- TAB: EXTRA -->
+  <div id="tab-extra" class="tab-content">
+
+    <h2>Дополнительные сведения</h2>
+
+    <h3>Реклама в рейтинге</h3>
+    <p>Рейтинг Рунета зарабатывает на рекламе внутри рейтингов (нулевая строка, средняя строка, генеральный спонсор). Реклама не влияет на позиции. Её могут купить и те, кого нет в рейтингах. Ближайшие аукционы начинаются 2 марта. На каждого рекламодателя приходится около 10 мест размещения в десктопной и мобильной версии.</p>
+
+    <h3>Посещаемость и зачем это важно</h3>
+    <p>Около 100 000 уникальных посетителей в месяц на рейтинговой части сайта. Пик — июнь, в месяц выхода рейтингов. По всем внешним метрикам — самый посещаемый ресурс в теме подбора digital-подрядчиков в России.</p>
+
+    <h3>Специализация и попадание в срезы</h3>
+    <p>Попасть в бесконечное число рейтингов нельзя — система учитывает понятие специализации. Максимум в прошлом году — 6 рейтингов для одной компании. Если вы работаете только с одной отраслью — попадёте в срез по этой отрасли, но не в основной. Если с разными отраслями — попадёте в основной.</p>
+
+    <h3>Отзывы и портфолио</h3>
+    <p>Отзывы никак не влияют на рейтинги. Портфолио — это только то, что вы сами загрузили в вкладке «Для портфолио»: название, картинка, описание, до 3 ссылок. Именно это видит заказчик. Проекты до 15 января 2024 года остаются в портфолио, но на рейтинговый балл не влияют.</p>
+
+    <h3>Коммуникация с организаторами</h3>
+    <div class="callout">
+      <strong>Разговорная группа (Telegram)</strong> — задавайте вопросы, получайте ответы ежедневно в течение всего периода подачи и проверки данных (~3 месяца)<br>
+      <strong>Канал «Рабочая»</strong> — все новости, обновления методики и правил. Включите уведомления.<br>
+      <strong>Почта</strong> — убедитесь, что в личном кабинете указана та почта, которую вы реально читаете. Уведомления об обязательной проверке приходят туда.<br>
+      <strong>Резервный канал в Максе</strong> — появится в марте на случай ограничений Telegram.
+    </div>
+
+    <h3>Промежуточные результаты</h3>
+    <p>С 27 апреля организаторы начинают публиковать промежуточные результаты — вы сможете увидеть, в какие рейтинги и срезы попадаете предварительно. Система будет подсказывать, почему вас где-то нет и что учитывается. Обязательно проверяйте себя: большинство участников находят там ошибки и пропущенные данные.</p>
+
+    <h3>Загрузка проектов прошлых лет</h3>
+    <p>Все проекты, которые вы вносили в прошлые годы, сохраняются в кабинете — они никуда не удаляются. Раздел проектов был временно закрыт на переработку и откроется в середине марта. При открытии во вкладке «Ошибки» появятся проекты, которые требуют исправления (незаполненные обязательные поля, устаревшие сферы, отсутствие заказчика/плательщика). Во вкладке «Предупреждения» — проекты с подозрительными данными.</p>
+
+    <h3>Участие бесплатно — что это значит</h3>
+    <p>Попасть в рейтинги можно полностью бесплатно, если все ваши проекты открытые. Вы платите только за скрытие проектов (1 500 → 2 000 ₽/проект), за добровольную проверку открытых проектов (та же цена) и за секретные проекты (по отдельному счёту). Обязательная проверка открытых проектов — всегда бесплатна.</p>
+
+    <h3>Пересчёт рейтингов</h3>
+    <p>После закрытия всех проверок (29 мая) организаторы уходят на техническую подготовку рейтингов. В 2025 году пересчёт всех рейтингов занял около 35 часов. В 2026 году рейтингов больше и расчёт сложнее — времени потребуется ещё больше. Публикация запланирована на 15–19 июня 2026 года. Все рейтинги и все срезы выходят одновременно, в один день.</p>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <strong>Ключевые документы:</strong><br>
+    · <strong>Методика</strong> — требования к попаданию в каждый рейтинг и формула расчёта балла<br>
+    · <strong>Правила</strong> — как заполнять каждое поле, какими документами подтверждать, перечень допустимых документов<br>
+    · <strong>Справочник экспертиз</strong> — полный список учитываемых услуг с описаниями<br>
+    · <strong>График вноса/проверки</strong> — дедлайны (закреплён в канале «Рабочая»)<br><br>
+    <em>Гид составлен на основе вебинара Александра Туника и Анатолия Денисова, февраль 2026.</em>
+  </div>
+
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Timeline
+const timelineEvents = [
+  { date: "Сейчас (март)", label: "Внос заказчиков и плательщиков", dot: "green", active: true },
+  { date: "Середина марта", label: "Открытие раздела «Проекты»", dot: "" },
+  { date: "Конец марта", label: "Подтверждение скрытых проектов + список наград", dot: "" },
+  { date: "6–13 апреля", label: "Проверка секретных проектов", dot: "" },
+  { date: "Середина апреля", label: "Загрузка оборотов", dot: "" },
+  { date: "Конец апреля", label: "Добавление наград", dot: "" },
+  { date: "27 апреля", label: "Промежуточные результаты", dot: "gold" },
+  { date: "8 мая", label: "Дедлайн внесения данных", dot: "red", deadline: true },
+  { date: "11 мая", label: "Обязательная проверка проектов", dot: "" },
+  { date: "25 мая", label: "Последний день внесения наград", dot: "" },
+  { date: "29 мая", label: "Завершение всех проверок", dot: "green" },
+  { date: "15–19 июня", label: "Публикация всех рейтингов", dot: "dark", final: true },
+];
+
+const tlContainer = document.getElementById('timeline-events');
+timelineEvents.forEach((e, i) => {
+  const div = document.createElement('div');
+  div.className = 'tl-item';
+  const isLast = i === timelineEvents.length - 1;
+  div.innerHTML = `
+    <div class="tl-left"><div class="tl-date">${e.date}</div></div>
+    <div class="tl-line">
+      <div class="tl-dot ${e.dot || ''}"></div>
+      ${!isLast ? '<div class="tl-connector"></div>' : ''}
+    </div>
+    <div class="tl-right ${e.active ? 'active' : e.deadline ? 'deadline' : e.final ? 'final' : ''}">
+      ${e.label}${e.active ? '<span class="you-here">← вы здесь</span>' : ''}
+    </div>`;
+  tlContainer.appendChild(div);
+});
+
+// Project types
+const projectTypes = [
+  { icon: "📂", title: "Открытый",
+    items: ["Заказчик виден публично", "Услуги и сроки видны", "Проверка бесплатная", "4–10 проектов выбираются рандомно"],
+    cost: "Бесплатно" },
+  { icon: "🔒", title: "Скрытый",
+    items: ["Заказчик НЕ виден", "Виден только контент из вкладки «Портфолио»", "Каждый проект проверяется", "Подтверждение через кабинет"],
+    cost: "1 500 → 2 000 ₽/проект" },
+  { icon: "🤫", title: "Секретный",
+    items: ["Нет цифрового следа заказчика", "Верификация лично/созвон", "Подписывается NDA", "Только Москва и СПб"],
+    cost: "Оплата по счёту заранее" },
+];
+const typesGrid = document.getElementById('project-types-grid');
+projectTypes.forEach(t => {
+  const card = document.createElement('div');
+  card.className = 'type-card';
+  card.innerHTML = `
+    <div class="type-card-title">${t.icon} ${t.title}</div>
+    <ul>${t.items.map(i => `<li>${i}</li>`).join('')}</ul>
+    <div class="type-price">${t.cost}</div>`;
+  typesGrid.appendChild(card);
+});
+
+// Input order
+const ioSteps = [
+  { num:"1", title:"Изучить методику", desc:"Выбрать рейтинги, отобрать подходящие проекты" },
+  { num:"2", title:"О компании", desc:"Название, логотип, сайт, соцсети, 3 текстовых поля" },
+  { num:"3", title:"Плательщики", desc:"Сначала они — без них нельзя создать заказчиков" },
+  { num:"4", title:"Заказчики", desc:"Обычные или секретные. К ним привязываются плательщики" },
+  { num:"5", title:"Юрлица/ИП", desc:"Только те, что фигурируют в ваших проектах" },
+  { num:"6", title:"Проекты", desc:"С полным заполнением всех обязательных полей" },
+  { num:"7", title:"Обороты", desc:"По каждому юрлицу отдельно (новинка 2026)" },
+  { num:"8", title:"Награды", desc:"Дополнительно, повышают балл" },
+];
+const ioContainer = document.getElementById('input-order-steps');
+ioSteps.forEach((s, i) => {
+  const step = document.createElement('div');
+  step.className = 'step';
+  step.innerHTML = `<div class="step-num">${s.num}</div><div class="step-title">${s.title}</div><div class="step-desc">${s.desc}</div>`;
+  ioContainer.appendChild(step);
+  if (i < 7) {
+    const arr = document.createElement('div');
+    arr.className = 'step-arrow';
+    arr.textContent = '→';
+    ioContainer.appendChild(arr);
+  }
+});
+
+// Verification flow
+const vflowSteps = [
+  { icon:"📋", label:"Вы внесли открытые проекты", sub:"Дедлайн 8 мая" },
+  { icon:"🎲", label:"Система выбирает 4–10 проектов случайно", sub:"Из тех, что могут попасть в рейтинг" },
+  { icon:"📧", label:"Вам приходит уведомление", sub:"На почту + в кабинете" },
+  { icon:"📄", label:"Загружаете документы и делаете разметку", sub:"Выделяете области в документах" },
+  { icon:"✅", label:"Модератор проверяет (до 3 рабочих дней)", sub:"Проверяются ВСЕ поля — новинка 2026" },
+  { icon:"🏆", label:"Прошли → все открытые проекты учитываются", sub:"Не только проверенные" },
+];
+const vflowContainer = document.getElementById('vflow-steps');
+vflowSteps.forEach((s, i) => {
+  const step = document.createElement('div');
+  step.className = 'vflow-step';
+  step.innerHTML = `<div class="vflow-icon">${s.icon}</div><div class="vflow-label">${s.label}</div><div class="vflow-sub">${s.sub}</div>`;
+  vflowContainer.appendChild(step);
+  if (i < 5) {
+    const arr = document.createElement('div');
+    arr.className = 'vflow-arrow';
+    arr.textContent = '→';
+    vflowContainer.appendChild(arr);
+  }
+});
+
+// Verification types
+const vtypes = [
+  { cls:"green", title:"Обязательная проверка (бесплатно)",
+    items:["Запускается только для тех, у кого есть открытые проекты","Система выбирает 4–10 проектов случайно (из тех, что могут попасть в рейтинг)","Право на 1 ошибку — можно не подтвердить 1 проект","Если прошли — ВСЕ открытые проекты учитываются","Исправление проекта во время обязательной проверки → +1 проект в выборку"] },
+  { cls:"blue", title:"Добровольная проверка (платно, 1 500 → 2 000 ₽)",
+    items:["Вы сами выбираете открытый проект и отправляете на проверку","Полезно, если хотите «потренироваться» перед обязательной","Если все открытые проекты прошли добровольную — обязательная не запускается","Позволяет закрыть все проекты до начала обязательной"] },
+  { cls:"purple", title:"Проверка скрытых проектов (платно, 1 500 → 2 000 ₽)",
+    items:["Каждый скрытый проект проверяется отдельно","Оплата только после успешного прохождения проверки","Успешно проверенный проект не надо проверять повторно в следующем году"] },
+  { cls:"dark", title:"Проверка секретных проектов (платно, по счёту)",
+    items:["Лично (выезд в Москву или СПб) или созвон без записи","Оплата заранее — до проверки (бронируется слот)","Подписывается NDA с ООО Proactivity","Никакие документы никуда не загружаются","Это эксперимент 2026 года — ограниченное число слотов"] },
+];
+const vtypesList = document.getElementById('vtypes-list');
+vtypes.forEach(v => {
+  const div = document.createElement('div');
+  div.className = 'vtype';
+  div.innerHTML = `
+    <div class="vtype-head ${v.cls}">${v.title}</div>
+    <div class="vtype-body">${v.items.map(i => `<div class="vtype-item">${i}</div>`).join('')}</div>`;
+  vtypesList.appendChild(div);
+});
+
+// Revenue steps
+const revSteps = [
+  "Выбираете юрлицо из вашего списка",
+  "Вводите полный оборот этого юрлица в его валюте. Не в тысячах! Если в балансе 10 000 (тыс. руб.) — вводите 10 000 000",
+  "Вводите сумму транзита этого юрлица (рекламные бюджеты, лицензии, субподряд, хостинг и т. д.)",
+  "Распределяете оставшуюся часть по категориям услуг РР, под которые вы завели проекты",
+  "Остаток — то, что не входит в учитываемые категории — отправляете в «Другое»",
+  "Загружаете подтверждающий документ (баланс с отметкой налоговой ИЛИ скриншот с сайта статистики)",
+  "Отправляете на модерацию. Срок проверки — до 3 рабочих дней",
+];
+const revStepsContainer = document.getElementById('rev-steps');
+revSteps.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.className = 'num-step';
+  div.innerHTML = `<div class="num-badge">${i+1}</div><div class="num-text">${s}</div>`;
+  revStepsContainer.appendChild(div);
+});
+</script>
+</body>
+</html>
